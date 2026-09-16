@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Docker App</title>
+</head>
+<body>
+
+    <h1>My First Docker Application</h1>
+    <p>This website is running inside Docker!</p>
+
+</body>
+</html>
