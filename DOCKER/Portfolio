@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YOUR_NAME's Portfolio</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 25px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>YOUR_NAME</h1>
+        <p>YOUR_COURSE | YOUR_INTEREST | YOUR_ROLE</p>
+    </header>
+
+    <section>
+        <h2>About Me</h2>
+        <p>
+            Hello! I am YOUR_NAME, a student interested in
+            YOUR_INTEREST. I enjoy learning about YOUR_TECHNOLOGY.
+        </p>
+    </section>
+
+    <section>
+        <h2>Skills</h2>
+        <p>YOUR_SKILL_1 • YOUR_SKILL_2 • YOUR_SKILL_3 • YOUR_SKILL_4</p>
+    </section>
+
+    <section>
+        <h2>Projects</h2>
+        <ul>
+            <li>YOUR_PROJECT_1 - YOUR_PROJECT_1_DESCRIPTION</li>
+            <li>YOUR_PROJECT_2 - YOUR_PROJECT_2_DESCRIPTION</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <p>YOUR_DEGREE - YOUR_COLLEGE</p>
+    </section>
+
+    <section>
+        <h2>Contact</h2>
+        <p>Email: YOUR_EMAIL</p>
+        <p>GitHub: YOUR_GITHUB</p>
+        <p>LinkedIn: YOUR_LINKEDIN</p>
+    </section>
+
+    <footer>
+        <p>© 2026 YOUR_NAME</p>
+    </footer>
+
+</body>
+</html>
+
