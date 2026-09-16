@@ -1,0 +1,626 @@
+========================================
+DOCKER WORKSHOP — COMMAND CHEAT SHEET
+========================================
+
+Workshop: Dockerize Your Portfolio
+Goal: Build → Containerize → Run
+
+
+BEFORE THE WORKSHOP
+-------------------
+
+Make sure Docker Desktop is installed and running.
+
+Check Docker:
+
+    docker --version
+
+What it does:
+    Shows your installed Docker version.
+
+When to use:
+    To check whether Docker is installed correctly.
+
+
+Test Docker:
+
+    docker run hello-world
+
+What it does:
+    Downloads and runs Docker's test image.
+
+When to use:
+    To verify that Docker is working correctly.
+
+
+========================================
+1. BASIC DOCKER COMMANDS
+========================================
+
+DOWNLOAD AN IMAGE
+-----------------
+
+Command:
+
+    docker pull nginx
+
+What it does:
+    Downloads the Nginx image from Docker Hub.
+
+When to use:
+    When you want to download an image without
+    creating a container yet.
+
+Think of it as:
+    "Download a ready-made package."
+
+
+RUN A CONTAINER
+---------------
+
+Command:
+
+    docker run nginx
+
+What it does:
+    Creates a new container from the Nginx image
+    and starts it.
+
+When to use:
+    When you want to create and start a NEW
+    container from an image.
+
+Remember:
+
+    docker run
+    = CREATE a new container + START it
+
+
+SEE RUNNING CONTAINERS
+----------------------
+
+Command:
+
+    docker ps
+
+What it does:
+    Shows currently running containers.
+
+When to use:
+    To check which containers are currently running.
+
+
+SEE ALL CONTAINERS
+------------------
+
+Command:
+
+    docker ps -a
+
+What it does:
+    Shows all containers, including stopped/exited
+    containers.
+
+When to use:
+    When you want to see both running and stopped
+    containers.
+
+Easy way to remember:
+
+    docker ps
+        → Running containers
+
+    docker ps -a
+        → All containers
+
+
+========================================
+2. CONTAINER LIFECYCLE
+========================================
+
+STOP A CONTAINER
+----------------
+
+Command:
+
+    docker stop my-docker-container
+
+What it does:
+    Stops a running container.
+
+When to use:
+    When you want to temporarily stop your application.
+
+Important:
+    The container is NOT deleted.
+
+
+START AN EXISTING CONTAINER
+---------------------------
+
+Command:
+
+    docker start my-docker-container
+
+What it does:
+    Starts an existing stopped container.
+
+When to use:
+    When you previously stopped a container and
+    want to run that same container again.
+
+Remember:
+
+    docker run
+        → Create + start a NEW container
+
+    docker start
+        → Start an EXISTING container
+
+
+REMOVE A CONTAINER
+------------------
+
+Command:
+
+    docker rm my-docker-container
+
+What it does:
+    Deletes a stopped container.
+
+When to use:
+    When you no longer need a container.
+
+Usually:
+
+    docker stop my-docker-container
+    docker rm my-docker-container
+
+
+========================================
+3. FIRST DOCKERFILE DEMO
+========================================
+
+Create a project folder:
+
+    my-docker-app/
+
+Inside it, create:
+
+    my-docker-app/
+    ├── index.html
+    └── Dockerfile
+
+
+----------------------------------------
+INDEX.HTML
+----------------------------------------
+
+Create a file called:
+
+    index.html
+
+Put this inside:
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>My First Docker App</title>
+    </head>
+    <body>
+
+        <h1>My First Docker Application</h1>
+        <p>This website is running inside Docker!</p>
+
+    </body>
+    </html>
+
+
+----------------------------------------
+DOCKERFILE
+----------------------------------------
+
+Create a file called:
+
+    Dockerfile
+
+Put this inside:
+
+    FROM nginx:latest
+
+    COPY index.html /usr/share/nginx/html/index.html
+
+
+What does it mean?
+
+    FROM nginx:latest
+
+        → Start with the Nginx image.
+
+    COPY index.html /usr/share/nginx/html/index.html
+
+        → Copy our HTML file into the location
+          where Nginx serves web pages.
+
+
+========================================
+4. GO TO YOUR PROJECT FOLDER
+========================================
+
+Command:
+
+    cd C:\Users\YourName\my-docker-app
+
+What it does:
+    Moves the terminal into your project folder.
+
+When to use:
+    Before running docker build.
+
+Note:
+    Replace "YourName" with your own Windows
+    username/path.
+
+
+========================================
+5. BUILD THE DOCKER IMAGE
+========================================
+
+Command:
+
+    docker build -t my-docker-app .
+
+What it does:
+    Builds a Docker image using the Dockerfile
+    and files in the current folder.
+
+
+BREAKDOWN:
+
+    docker
+        → Use Docker.
+
+    build
+        → Build an image.
+
+    -t
+        → Give the image a name/tag.
+
+    my-docker-app
+        → Image name.
+
+    .
+        → Use the current folder as the build context.
+
+
+FLOW:
+
+    Dockerfile + index.html
+              ↓
+        docker build
+              ↓
+          IMAGE
+
+
+========================================
+6. SEE YOUR IMAGES
+========================================
+
+Command:
+
+    docker images
+
+What it does:
+    Lists Docker images stored on your computer.
+
+When to use:
+    After building an image, to confirm that
+    the image was created.
+
+
+========================================
+7. RUN YOUR DOCKERIZED WEBSITE
+========================================
+
+Command:
+
+    docker run -d -p 8081:80 --name my-docker-container my-docker-app
+
+What it does:
+    Creates and starts a container from the
+    my-docker-app image.
+
+
+BREAKDOWN:
+
+    docker run
+        → Create and start a new container.
+
+    -d
+        → Run the container in the background.
+
+    -p 8081:80
+        → Connect your computer's port 8081
+          to the container's port 80.
+
+    --name my-docker-container
+        → Give the container an easy-to-remember name.
+
+    my-docker-app
+        → The image used to create the container.
+
+
+PORT MAPPING:
+
+    YOUR COMPUTER          CONTAINER
+
+         8081       →          80
+
+
+The browser connects to:
+
+    localhost:8081
+
+Docker forwards it to:
+
+    Container port 80
+
+Nginx receives the request and serves:
+
+    index.html
+
+
+========================================
+8. OPEN THE WEBSITE
+========================================
+
+This is NOT a Docker command.
+
+Open Chrome and visit:
+
+    http://localhost:8081
+
+
+You should see:
+
+    My First Docker Application
+
+    This website is running inside Docker!
+
+
+This is the main "WOW" moment of the demo.
+
+
+========================================
+9. CHECK THE RUNNING CONTAINER
+========================================
+
+Command:
+
+    docker ps
+
+When to use:
+    Immediately after docker run.
+
+What to look for:
+
+    my-docker-container
+
+You should also see a port mapping similar to:
+
+    0.0.0.0:8081->80/tcp
+
+
+========================================
+10. STOP AND RESTART THE WEBSITE
+========================================
+
+STOP:
+
+    docker stop my-docker-container
+
+What happens:
+    The container stops and the website becomes
+    unavailable.
+
+
+START AGAIN:
+
+    docker start my-docker-container
+
+What happens:
+    The existing container starts again.
+
+Then visit:
+
+    http://localhost:8081
+
+
+========================================
+11. MINI CHALLENGE
+========================================
+
+Modify your index.html.
+
+For example:
+
+    <h1>Hi, I'm Your Name!</h1>
+
+    <p>
+        CSE (AI) Student |
+        Developer |
+        Robotics Enthusiast
+    </p>
+
+
+After changing the HTML, rebuild the image:
+
+    docker build -t my-docker-app .
+
+
+Then create a fresh container:
+
+    docker stop my-docker-container
+
+    docker rm my-docker-container
+
+
+Run the updated image:
+
+    docker run -d -p 8081:80 --name my-docker-container my-docker-app
+
+
+Open:
+
+    http://localhost:8081
+
+
+Now your updated website is running inside Docker.
+
+
+========================================
+12. COMPLETE DOCKER FLOW
+========================================
+
+                index.html
+                    ↓
+                Dockerfile
+                    ↓
+              docker build
+                    ↓
+               DOCKER IMAGE
+                    ↓
+               docker run
+                    ↓
+             DOCKER CONTAINER
+                    ↓
+                  Nginx
+                    ↓
+              localhost:8081
+                    ↓
+              YOUR WEBSITE
+
+
+========================================
+13. COMMANDS TO REMEMBER
+========================================
+
+    docker pull
+        → Download an image
+
+    docker build
+        → Create an image
+
+    docker run
+        → Create + start a new container
+
+    docker ps
+        → See running containers
+
+    docker ps -a
+        → See all containers
+
+    docker stop
+        → Stop a container
+
+    docker start
+        → Start an existing container
+
+    docker rm
+        → Remove a stopped container
+
+    docker images
+        → See Docker images
+
+
+========================================
+14. COMMANDS NOT USED IN THIS WORKSHOP
+========================================
+
+These are intentionally NOT hands-on:
+
+    docker exec
+    docker logs
+    docker inspect
+    docker network
+    docker volume
+    docker compose
+    docker push
+    docker commit
+    docker system prune
+
+These can be covered in later Docker sessions.
+
+
+========================================
+15. IMPORTANT DOCKER CONCEPTS
+========================================
+
+IMAGE
+-----
+
+A packaged template used to create containers.
+
+
+CONTAINER
+---------
+
+A running instance created from an image.
+
+
+DOCKERFILE
+----------
+
+A set of instructions used to build an image.
+
+
+PORT
+----
+
+A doorway through which we access an application.
+
+
+CORE IDEA:
+
+    DOCKERFILE
+        ↓
+    docker build
+        ↓
+      IMAGE
+        ↓
+    docker run
+        ↓
+    CONTAINER
+        ↓
+    APPLICATION
+
+
+========================================
+QUICK MEMORY TRICK
+========================================
+
+    PULL
+        → Get an image
+
+    BUILD
+        → Create your own image
+
+    RUN
+        → Create + start a container
+
+    PS
+        → See containers
+
+    STOP
+        → Stop a container
+
+    START
+        → Restart an existing container
+
+    RM
+        → Delete a container
+
+
+========================================
+END
+========================================
